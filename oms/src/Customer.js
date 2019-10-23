@@ -1,6 +1,7 @@
 import React from 'react';
 import {Component} from 'react';
 import axios from 'axios';
+import CircularJSON from 'circular-json';
 
 class Customer extends Component {
 
@@ -12,13 +13,28 @@ class Customer extends Component {
   onSubmitButtonClick() {
     console.log("Customer submit button clicked");
 
-    (async () => {
-      const response = await axios({
-        url: 'https://localhost:8080/customers',
-        method: 'get'
-      });
+    this.customerID = document.getElementById("customerID").value;
+    this.customerName = document.getElementById("customerName").value;
+    this.shippingAddress = document.getElementById("shippingAddress").value;
 
-      console.log(response)
+    console.log ( this.customerID.value );
+    console.log ( this.customerName.value );
+    console.log ( this.shippingAddress.value );
+     
+    let newCustomer = {
+          id: this.customerID,
+          name: this.customerName,
+          shippingAddress: this.shippingAddress
+    };
+
+    (async () => {
+      const response = await axios( {
+        url: 'http://localhost:8080/newcustomer',
+        method: 'post',
+        body: CircularJSON.stringify(newCustomer),
+        dataType: 'application/json'
+      });
+      console.log(response);
       }
     )();
 
@@ -30,18 +46,20 @@ class Customer extends Component {
         <header className="customer">
           <h2>Manage Customer</h2>
           <table>
+            <tbody>
               <tr>
-              <td><label>Customer ID</label></td>
-              <td><input type="number" id="customerID" min="1" max="100"></input></td>
-            </tr>       
-            <tr>
-              <td><label>Customer Name</label></td>
-              <td><input type="text" id="customerName"></input></td>
-            </tr>
-            <tr>
-              <td><label>Shipping Address</label></td>
-              <td><input type="text" id="shippingAddress"></input></td>
-            </tr>
+                <td><label>Customer ID</label></td>
+                <td><input type="number" id="customerID" min="1" max="100"></input></td>
+              </tr>       
+              <tr>
+                <td><label>Customer Name</label></td>
+                <td><input type="text" id="customerName"></input></td>
+              </tr>
+              <tr>
+                <td><label>Shipping Address</label></td>
+                <td><input type="text" id="shippingAddress"></input></td>
+              </tr>
+            </tbody>
           </table>
           <button id="submit" onClick={this.onSubmitButtonClick}>Submit</button>
         </header>

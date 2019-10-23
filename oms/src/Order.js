@@ -12,9 +12,10 @@ class Order extends Component {
     return (
       <div className="Order">
         <header className="order">
-            <p><h2>Manage Order</h2></p>
+            <h2>Manage Order</h2>
           <table>
-            <tr>
+            <tbody>            
+              <tr>
               <td><label>Customer ID</label></td>
               <td><input type="number" id="customerID"></input></td>
             </tr>
@@ -26,6 +27,8 @@ class Order extends Component {
               <td><label>Shipping Address</label></td>
               <td><input type="text" id="shippingAddress"></input></td>
             </tr>
+            </tbody>
+
           </table>
           <button id="submit" onClick={ this.onSubmitClick }>Submit</button>
         </header>
