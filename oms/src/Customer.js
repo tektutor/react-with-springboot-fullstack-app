@@ -17,9 +17,9 @@ class Customer extends Component {
     this.customerName = document.getElementById("customerName").value;
     this.shippingAddress = document.getElementById("shippingAddress").value;
 
-    console.log ( this.customerID.value );
-    console.log ( this.customerName.value );
-    console.log ( this.shippingAddress.value );
+    console.log ( this.customerID );
+    console.log ( this.customerName );
+    console.log ( this.shippingAddress );
      
     let newCustomer = {
           id: this.customerID,
@@ -31,8 +31,8 @@ class Customer extends Component {
       const response = await axios( {
         url: 'http://localhost:8080/newcustomer',
         method: 'post',
-        body: CircularJSON.stringify(newCustomer),
-        dataType: 'application/json'
+        contentType: 'application/json',
+        data: newCustomer
       });
       console.log(response);
       }
